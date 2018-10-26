@@ -6,3 +6,7 @@ create-react-app todo-react
 cd todo-react
 npm start
 ```
+
+### 2. 实现功能
+- 需求分析
+- 初始化项目并提交至github
