@@ -9,11 +9,23 @@ export default class TodoApp extends React.Component {
     super(props) // 父类的构造函数
     this.state = { // 初始化默认状态
       todos: [
-        {id: Date.now(), title: '今天学习React', completed: false},
-        {id: Date.now(), title: '今天学习Vue', completed: false}
+        {id: Math.random(), title: '今天学习React', completed: false},
+        {id: Math.random(), title: '明天学习Vue', completed: true}
       ]
     }
   }
+
+  toggle = (id) => {
+    let todos = this.state.todos
+    todos = todos.map(todo => {
+      if(todo.id === id) {
+        todo.completed = !todo.completed
+      }
+      return todo
+    })
+    this.setState({todos})
+  }
+
   addTodo = (todo) => {
     todo = Object.assign({}, {id: Date.now(), completed: false}, todo) // es5语法
     // todo = {id: Date.now(), completed: false, ...todo} // es7语法，...对象展开符
@@ -21,11 +33,12 @@ export default class TodoApp extends React.Component {
     todos.push(todo)
     this.setState({todos})
   }
+
   render() {
     let main = (
       <ul className="list-group">
         {
-          this.state.todos.map((todo, index) => <TodoItem todo={todo} key={index}/>)
+          this.state.todos.map((todo, index) => <TodoItem toggle={this.toggle} todo={todo} key={index}/>)
         }
       </ul>
     )

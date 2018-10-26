@@ -13,3 +13,4 @@ npm start
 - 3.引入bootstrap并编写TodoHeader组件
 - 4.编写代办事项列表组件
 - 5.添加待办事项
+- 6.实现切换完成状态的功能
