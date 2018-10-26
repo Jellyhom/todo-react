@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TodoApp from './TodoApp'
-import TodoModal from './TodoModel'
+import TodoModel from './TodoModel'
+// import TodoApiModel from './TodoApiModel'
 
-let model = new TodoModal()
+let model = new TodoModel()
+// let model = new TodoApiModel()
 
 function render () {
   ReactDOM.render(<TodoApp model={model}/>, document.getElementById('root'))

@@ -18,8 +18,7 @@ export default class TodoModel {
 
   notify (todos) {
     localStorage.setItem(this.STORE_KEY, JSON.stringify(todos))
-    console.log(this.todos);
-    // this.todos = todos
+    this.todos = todos
     this.emit()
   }
 
