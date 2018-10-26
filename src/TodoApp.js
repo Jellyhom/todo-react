@@ -9,20 +9,20 @@ export default class TodoApp extends React.Component {
   constructor(props) {
     super(props) // 父类的构造函数
     this.state = { // 初始化默认状态
-      todos: [],
+      // todos: [],
       filterType: filterTypes.ALL
     }
   }
 
   remove = id => {
-    let todos = this.state.todos
+    let todos = this.props.model.todos
     let index = todos.findIndex(todo => todo.id === id)
     todos.splice(index, 1)
     this.setState({todos})
   }
 
   toggle = (id) => {
-    let todos = this.state.todos
+    let todos = this.props.model.todos
     todos = todos.map(todo => {
       if(todo.id === id) {
         todo.completed = !todo.completed
@@ -32,17 +32,9 @@ export default class TodoApp extends React.Component {
     this.setState({todos})
   }
 
-  addTodo = (todo) => {
-    todo = Object.assign({}, {id: Date.now(), completed: false}, todo) // es5语法
-    // todo = {id: Date.now(), completed: false, ...todo} // es7语法，...对象展开符
-    let todos = this.state.todos
-    todos.push(todo)
-    this.setState({todos})
-  }
-
   toggleAll = (event) => {
     let checked = event.target.checked
-    let todos = this.state.todos
+    let todos = this.props.model.todos
     todos.map(todo => todo.completed = checked)
     this.setState({todos})
   }
@@ -52,13 +44,13 @@ export default class TodoApp extends React.Component {
   }
 
   clearCompleted = () => {
-    let todos = this.state.todos
+    let todos = this.props.model.todos
     todos = todos.filter(todo => !todo.completed)
     this.setState({todos})
   }
 
   render() {
-    let todos = this.state.todos
+    let todos = this.props.model.todos
     let activeTodoCount = todos.reduce((count, todo) => { // es5
       return count + (todo.completed ? 0 : 1)
     }, 0)
@@ -97,7 +89,7 @@ export default class TodoApp extends React.Component {
           <div className="col-md-6 col-md-offset-3">
             <div className="panel panel-default">
               <div className="panel-heading">
-                <TodoHeader addTodo={this.addTodo}/>
+                <TodoHeader addTodo={this.props.model.addTodo}/>
               </div>
               <div className="panel-body">
                 {main}
