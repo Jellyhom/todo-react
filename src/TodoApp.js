@@ -14,39 +14,8 @@ export default class TodoApp extends React.Component {
     }
   }
 
-  remove = id => {
-    let todos = this.props.model.todos
-    let index = todos.findIndex(todo => todo.id === id)
-    todos.splice(index, 1)
-    this.setState({todos})
-  }
-
-  toggle = (id) => {
-    let todos = this.props.model.todos
-    todos = todos.map(todo => {
-      if(todo.id === id) {
-        todo.completed = !todo.completed
-      }
-      return todo
-    })
-    this.setState({todos})
-  }
-
-  toggleAll = (event) => {
-    let checked = event.target.checked
-    let todos = this.props.model.todos
-    todos.map(todo => todo.completed = checked)
-    this.setState({todos})
-  }
-
   changeFilterType = (filterType) => {
     this.setState({filterType})
-  }
-
-  clearCompleted = () => {
-    let todos = this.props.model.todos
-    todos = todos.filter(todo => !todo.completed)
-    this.setState({todos})
   }
 
   render() {
@@ -69,16 +38,16 @@ export default class TodoApp extends React.Component {
             <li className="list-group-item">
               <input type="checkbox"
                      checked={activeTodoCount === 0}
-                     onChange={this.toggleAll}/>
+                     onChange={this.props.model.toggleAll}/>
               {activeTodoCount === 0 ? '全部取消' : '全部选中'}
             </li>
            : null
         }
         {
           showTodos.map((todo, index) =>
-            <TodoItem toggle={this.toggle}
+            <TodoItem toggle={this.props.model.toggle}
                       todo={todo}
-                      remove={this.remove}
+                      remove={this.props.model.remove}
                       key={index}/>)
         }
       </ul>
@@ -99,7 +68,7 @@ export default class TodoApp extends React.Component {
                             filterType={this.state.filterType}
                             completedTodoCount={completedTodoCount}
                             changeFilterType={this.changeFilterType}
-                            clearCompleted={this.clearCompleted}/>
+                            clearCompleted={this.props.model.clearCompleted}/>
               </div>
             </div>
           </div>
